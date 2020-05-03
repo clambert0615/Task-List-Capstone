@@ -107,7 +107,7 @@ namespace Task_List_Capstone
                 }
                 
                 Console.WriteLine("What is the task description?");
-                string description = Console.ReadLine().ToLower().Trim();
+                string description = Console.ReadLine().Trim();
                 if (string.IsNullOrEmpty(description))
                 {
                     Console.WriteLine("Invalid input try again.");

@@ -87,11 +87,23 @@ namespace Task_List_Capstone
                 }
                 else if (menuChoice == 7)
                 {
+                    DateTime userDate = DateTime.MinValue;
                     bool getDate = true;
                     while (getDate)
                     {
+
+                        try
+                        {
+                        
                         Console.WriteLine("Enter the due date you want to see tasks before");
-                        DateTime userDate = DateTime.Parse(Console.ReadLine());
+                         userDate = DateTime.Parse(Console.ReadLine());
+                         }
+                        catch(FormatException)
+                        {
+                            Console.WriteLine("This is not a valid date. Try again.");
+                            continue;
+                        }
+                        
                         bool dateFound = false;
 
                         Console.WriteLine("These are the tasks with due dates before the date you entered:");
@@ -177,18 +189,34 @@ namespace Task_List_Capstone
                         newName = textInfo.ToTitleCase(newName);
 
                         taskList[taskToEdit].TeamMemberName = newName;
+                        if(string.IsNullOrEmpty(newName))
+                        {
+                            Console.WriteLine("You did not enter anything. Please try again.");
+                        }
+
                     }
                     else if (userEdit == "description")
                     {
                         Console.WriteLine("What would you like to the new description to be?");
-                        string newDescription = Console.ReadLine().ToLower().Trim();
+                        string newDescription = Console.ReadLine().Trim();
                         taskList[taskToEdit].TaskDescription = newDescription;
+                        if(string.IsNullOrEmpty(newDescription))
+                        {
+                            Console.WriteLine("You must enter something. Try again.");
+                        }
                     }
                     else if (userEdit == "date")
                     {
-                        Console.WriteLine("What would you like the new due date to be?");
-                        DateTime newDueDate = DateTime.Parse(Console.ReadLine());
-                        taskList[taskToEdit].DueDate = newDueDate;
+                       try
+                            {
+                            Console.WriteLine("What would you like the new due date to be?");
+                            DateTime newDueDate = DateTime.Parse(Console.ReadLine());
+                            taskList[taskToEdit].DueDate = newDueDate;
+                        }
+                        catch(FormatException)
+                        {
+                            Console.WriteLine("This is not a valid date, try again.");
+                        }
                     }
                     else if (userEdit == "completion")
                     {
